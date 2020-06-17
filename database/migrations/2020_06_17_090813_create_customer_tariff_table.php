@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCustomerTariffsTable extends Migration
+class CreateCustomerTariffTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,15 @@ class CreateCustomerTariffsTable extends Migration
      */
     public function up()
     {
-        Schema::create('customer_tariffs', function (Blueprint $table) {
+        Schema::create('customer_tariff', function (Blueprint $table) {
+            $table->id();
             $table->bigInteger('tariff_id')->unsigned();
             $table->bigInteger('customer_id')->unsigned();
-            
-            $table->primary('tariff_id');
+
+            $table->foreign('tariff_id')
+                ->references('id')
+                ->on('tariffs')
+                ->onDelete('cascade');
 
             $table->foreign('customer_id')
                 ->references('id')
@@ -33,6 +37,6 @@ class CreateCustomerTariffsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('customer_tariffs');
+        Schema::dropIfExists('customer_tariff');
     }
 }
