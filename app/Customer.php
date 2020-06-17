@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Customer extends Model
 {
@@ -17,18 +18,9 @@ class Customer extends Model
         'first_name', 'last_name', 'is_active'
     ];
 
-    
 
     /**
-    * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    */
-    public function companies()
-    {
-        return $this->belongsToMany(Company::class);
-    }
-
-    /**
-    * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    * @return BelongsToMany
     */
     public function tariffs()
     {
