@@ -15,10 +15,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        //$this->call(CompanyTariffsSeeder::class);
-        //$this->call(CompanyCustomersSeeder::class);
-
-        
         $customers = Customer::all();
 
         foreach ($customers as $customer) {

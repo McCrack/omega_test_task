@@ -1,154 +1,71 @@
 <?php
 
+
 namespace App\Omega;
 
-use App\Company;
-use App\Tariff;
-use App\Customer;
 
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class Export
 {
-    private Company $company;
+    /**
+     * @var string
+     */
+    private string $company;
+    private Collection $data;
 
     /**
-     * @param string $companyName
+     * @param string $company
      * @return $this
      */
-    public function company(string $companyName)
+    public function company(string $company): Export
     {
-        $this->company = Company::whereName($companyName)->first();
-
+        $this->company = $company;
+        $this->makeCollection();
         return $this;
     }
 
-    /**
-     * @param bool|null $isActive
-     * @return int
-     */
-    public function customersCount(bool $isActive = null): int
+    private function makeCollection()
     {
-        $builder = DB::table('customer_tariff')
-            ->join('customers', 'customers.id', '=', 'customer_id')
-            ->whereIn('tariff_id',
-                $this->company
-                    ->tariffs()
-                    ->pluck('tariffs.id')
-            );
-        if (isset($isActive)) {
-            if ($isActive) {
-                $builder->where('is_active', '>', 0);
-            } else {
-                $builder->where('is_active', 0);
-            }
-        }
-        return $builder->distinct('customer_id')->count();
+        $repository = new Repository();
+        $this->data = new Collection([
+            'company' => $this->company,
+            'date' => date('M d, Y'),
+            'total_customers' => $repository->customers($this->company)->count(),
+            'not_active_customers' => $repository->customers($this->company)->active(false)->count(),
+            'tariffs' => $repository->tariffs($this->company)->active()->get(),
+            'customers' => $repository->getCustomers($this->company)->active()->get(),
+        ]);
     }
 
     /**
-     * @return Collection
+     * @return string
      */
-    public function tariffs(): Collection
+    public function store(): string
     {
-        return DB::table('customer_tariff')
-            ->select(DB::raw('tariffs.name AS tariff, COUNT(DISTINCT customer_id) AS customers'))
-            ->join('customers', 'customers.id', '=', 'customer_id')
-            ->join('tariffs', 'tariffs.id', '=', 'tariff_id')
-            ->where('is_active', '>', 0)
-            ->where('company_id', $this->company->id)
-            ->groupBy('tariff_id')
-            ->get();
-    }
+        $fileName = $this->company . '-' . date('d-m-Y');
 
-    /**
-     * @param bool $isActive
-     * @return Collection
-     */
-    public function customers(bool $isActive = null): Collection
-    {
-        $builder = DB::table('customer_tariff')
-            ->select(
-                DB::raw('tariffs.name AS tariff, CONCAT(customers.first_name, " ", customers.first_name) AS name'),
-                'customers.phone',
-                'is_active'
-            )
-            ->join('customers', 'customers.id', '=', 'customer_id')
-            ->join('tariffs', 'tariffs.id', '=', 'tariff_id');
-        if ($isActive) {
-            $builder->where('is_active', '>', 0);
-        } else {
-            $builder->where('is_active', 0);
+        if (Storage::disk('public')->missing('json')) {
+            Storage::disk('public')->makeDirectory('json');
         }
-        return $builder->get();
+        (new Json($this->data))->store($fileName);
+
+        if (Storage::disk('public')->missing('xml')) {
+            Storage::disk('public')->makeDirectory('xml');
+        }
+        //(new Xml($this->data))->store($fileName);
+        /*
+        if (Storage::disk('public')->missing('csv')) {
+            Storage::disk('public')->makeDirectory('csv');
+        }
+        (new Csv($this->data))->store($fileName);
+        */
+        if (Storage::disk('public')->missing('xlsx')) {
+            Storage::disk('public')->makeDirectory('xlsx');
+        }
+        (new Xlsx($this->data))->store($fileName);
+
+        return "Done";
     }
 }
-
-
-/*
-SELECT
-	COUNT(DISTINCT customer_id) AS cnt
-FROM
-	customer_tariff
-WHERE
-    tariff_id IN (
-	    SELECT
-		    tariffs.id
-	    FROM `companies`
-	    JOIN `tariffs` ON `tariffs`.`company_id` = `companies`.`id`
-        WHERE `companies`.`name` = 'Monahan-Marquardt'
-    )
-*/
-
-/*
-SELECT
-	COUNT(DISTINCT customer_id) AS cnt
-FROM
-	customer_tariff
-JOIN
-	customers ON customers.id = customer_tariff.customer_id
-WHERE
-    is_active = 0
-    AND tariff_id IN (
-	    SELECT
-		    tariffs.id
-	    FROM `companies`
-	    JOIN `tariffs` ON `tariffs`.`company_id` = `companies`.`id`
-        WHERE `companies`.`name` = 'Monahan-Marquardt'
-    )
-*/
-
-/*
-SELECT
-    tariffs.name AS tariff,
-    COUNT(DISTINCT customer_id) AS customers
-FROM
-    `customer_tariff`
-JOIN
-    `customers` ON customers.id = customer_tariff.customer_id
-JOIN
-    `tariffs` ON tariffs.id = customer_tariff.tariff_id
-JOIN
-    `companies` ON companies.id = tariffs.company_id
-WHERE
-    companies.name = 'Monahan-Marquardt'
-    AND customers.is_active > 0
-GROUP BY tariff_id
-
-*/
-
-/*
-SELECT
-    CONCAT(customers.first_name, ' ', customers.first_name) AS name,
-    customers.phone,
-    tariffs.name as tariff
-FROM
-    `customer_tariff`
-JOIN
-    `customers` ON customers.id = customer_tariff.customer_id
-JOIN
-    `tariffs` ON tariffs.id = customer_tariff.tariff_id
-WHERE
-    customers.is_active > 0
-*/
