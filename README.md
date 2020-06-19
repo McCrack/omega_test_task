@@ -1,25 +1,24 @@
 <h3>Тестовое задание</h3>
 
-<p>Для реализации ипользовался фреймворк <b>Laravel</b>, MySQL, PHP 7.4.3</p>
+<h4>Для реализации ипользовался фреймворк Laravel, MySQL, PHP 7.4.3</h4>
 
+<ol>
+    <li>Клонировать проект
+    <code>git clone https://github.com/McCrack/omega_test_task.git</code></li>
 
-1. Клонировать проект
-<code>
-git clone https://github.com/McCrack/omega_test_task.git
-</code>
+    <li>Установить зависимости
+    <code>composer install</code></li>
 
-2. Установить зависимости
-composer install
+    <li>Создать базу данных и настроить подключение в файле <b>.env</b></li>
 
-3. Создать базу данных и настроить подключение в файле .env
-
-4. Выполнить миграции и наполнить базу фейковыми данными (займет время)
-php artisan migrate --seed
-
-
+    <li>Выполнить миграции и наполнить базу фейковыми данными (займет время)
+    <code>php artisan migrate --seed</code></li>
+<ol>
+<p>
 
 Весь код по заданию находится в папке App/Omega плюс три модели в папке App
 
+<p>
 
 2. Написать SQL-запросы для получения:
 
