@@ -86,16 +86,16 @@
     </code>
 </p>
 <p>
-Экспортированые файлы можно найти в папке storage/app/public
+Экспортированые файлы можно найти в папке <code>storage/app/public</code>
 </p>
 
 <h3>Raw запросы</h3>
 
 <p>
 Количество всех клиентов, подписанных хоть на один тариф (по компаниям)
-<br>
+</p>
+<pre>
 <code>
-    
 SELECT
 	COUNT(DISTINCT customer_id) AS cnt
 FROM
@@ -110,7 +110,8 @@ WHERE
     )
     
 </code>
-</p>
+</pre>
+
 
 
 <p>
