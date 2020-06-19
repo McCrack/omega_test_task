@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Omega;
+namespace App\Task\Mining;
 
 
 use Illuminate\Support\Collection;
@@ -10,25 +10,25 @@ use Illuminate\Support\Facades\Storage;
 class Json
 {
     /**
-     * @var Collection
+     * @var array
      */
-    private Collection $data;
+    private array $data;
 
     /**
      * Json constructor.
-     * @param Collection $data
+     * @param array $data
      */
-    public function __construct(Collection $data)
+    public function __construct(array $data)
     {
         $this->data = $data;
     }
 
     /**
-     * @param $filename
+     * @param $path
      */
-    public function store($filename)
+    public function store($path): void
     {
         $json = json_encode($this->data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-        Storage::disk('public')->put("json/{$filename}.json", $json);
+        file_put_contents($path, $json);
     }
 }
