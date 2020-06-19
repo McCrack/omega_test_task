@@ -68,19 +68,22 @@
 <p>
     2.4 Список активных клиентов и тарифы, на которые они подписаны
     <br>
-    Выполнить  в консоли
+    Выполнить  в консоли:
     <br>
     <code>(new App\Task\Repository)->company('<имя компании>')->customersWithTariffs()->active()->get()</code>
 </p>
 <h3>3. Написать консольный php-скрипт для формирования отчетов компаний</h3>
 <p>
-    Выполните в консоли
+    Выполните в консоли:
     <br>
     <code>>>>(new App\Task\Omega)->export()</code>
 </p>
 <p>
     Для экпорта одной конкретной компании можо указать ее имя параметром метода export
-    <code>(new App\Task\Omega)->export("Halvorson-O'Hara")</code>
+    <br>
+    <code>
+    >>>(new App\Task\Omega)->export("Halvorson-O'Hara")</code>
+    </code>
 </p>
 <p>
 Экспортированые файлы можно найти в папке storage/app/public
