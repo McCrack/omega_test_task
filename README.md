@@ -138,8 +138,8 @@ FROM
 	customer_tariff
 WHERE
     tariff_id IN (
-	    SELECT
-		    tariffs.id
+        SELECT
+            tariffs.id
         FROM
             `companies`
         JOIN
@@ -168,7 +168,7 @@ WHERE
     is_active = 0
     AND tariff_id IN (
         SELECT
-		    tariffs.id
+            tariffs.id
         FROM
             `companies`
         JOIN
