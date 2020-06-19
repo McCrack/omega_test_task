@@ -3,32 +3,35 @@
 <h4>Для реализации ипользовался фреймворк Laravel, MySQL, PHP 7.4.3</h4>
 
 <ol>
-    <li>Клонировать проект
-    <code>git clone https://github.com/McCrack/omega_test_task.git</code></li>
+    <li>
+        Клонировать проект
+        <code>git clone https://github.com/McCrack/omega_test_task.git</code>
+    </code>
 
-    <li>Установить зависимости
-    <code>composer install</code></li>
+   <li>Установить зависимости
+        <code>composer install</code>
+   </li>
 
-    <li>Создать базу данных и настроить подключение в файле <b>.env</b></li>
+   <li>Создать базу данных и настроить подключение в файле <b>.env</b></li>
 
-    <li>Выполнить миграции и наполнить базу фейковыми данными (займет время)
-    <code>php artisan migrate --seed</code></li>
+   <li>
+        Выполнить миграции и наполнить базу фейковыми данными (займет время)
+        <code>php artisan migrate --seed</code>
+   </li>
 <ol>
 <p>
-
 Весь код по заданию находится в папке App/Omega плюс три модели в папке App
-
 <p>
+<h3>2. Написать SQL-запросы для получения...</h3>
+<div>
+    Raw запросы приведены вконце этого файл. Для демонстрации выполнить в консоли:
+    <code>php artisan tinker</code>
+</div>
+<div>
+   Нам понадобится список компаний, выполните
 
-2. Написать SQL-запросы для получения:
-
-Raw запросы приведены вконце этого файл. Для демонстрации выполнить в консоли:
-
-php artisan tinker
-
-Нам понадобится список компаний, выполните
-
-(new App\Omega\Repository)->getCompaniesList()
+   <code>>>(new App\Omega\Repository)->getCompaniesList()</code>
+</div>
 
 
 
