@@ -33,7 +33,7 @@
 <p>
    Нам понадобится список компаний, выполните:
     <br>
-   <code>>>(new App\Task\Repository)->getCompaniesList()</code>
+   <code>>>>(new App\Task\Repository)->getCompaniesList()</code>
 </p>
 
 
