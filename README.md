@@ -1,14 +1,16 @@
-<h3>Тестовое задание</h3>
+<h2>Тестовое задание</h2>
 
 <h4>Для реализации ипользовался фреймворк Laravel, MySQL, PHP 7.4.3</h4>
 
 <ol>
     <li>
         Клонировать проект
+        <br>
         <code>git clone https://github.com/McCrack/omega_test_task.git</code>
     </code>
 
    <li>Установить зависимости
+        <br>
         <code>composer install</code>
    </li>
 
@@ -16,6 +18,7 @@
 
    <li>
         Выполнить миграции и наполнить базу фейковыми данными (займет время)
+        <br>
         <code>php artisan migrate --seed</code>
    </li>
 <ol>
@@ -23,60 +26,67 @@
 Весь код по заданию находится в папке App/Omega плюс три модели в папке App
 <p>
 <h3>2. Написать SQL-запросы для получения...</h3>
-<div>
+<p>
     Raw запросы приведены вконце этого файл. Для демонстрации выполнить в консоли:
+    <br>
     <code>php artisan tinker</code>
-</div>
-<div>
+</p>
+<p>
    Нам понадобится список компаний, выполните
-
+    <br>
    <code>>>(new App\Omega\Repository)->getCompaniesList()</code>
-</div>
+</p>
 
 
 
-2.1. Количество всех клиентов, подписанных хоть на один тариф (по компаниям)
-    
-    Выполнить в консоли
-    (new App\Task\Repository)->company('<имя компании>')->customers()->count()
-
-
+<p>
+    2.1. Количество всех клиентов, подписанных хоть на один тариф (по компаниям)
+   <br>
+   Выполнить в консоли
+   <br>
+   <code>>>>(new App\Task\Repository)->company('<имя компании>')->customers()->count()</code>
+</p>
+<p>
 2.2  Количество неактивных клиентов, подписанных на тарифы (по компаниям)
-	
-    Выполнить  в консоли	
-	(new App\Task\Repository)->company('<имя компании>')->customers()->active(false)->count()
-
-
+	<br>
+    Выполнить  в консоли
+    <br>
+    <code>>>>(new App\Task\Repository)->company('<имя компании>')->customers()->active(false)->count()</code>
+</p>
+<p>
 2.3 Список тарифов и количество активных клиентов подписанных на эти тарифы (по 	компаниям)
-
+    <br>
     Выполнить  в консоли
-    (new App\Task\Repository)->company('<имя компании>')->tariffsWithActiveCustomers()->active()->get()
-
-2.4 Список активных клиентов и тарифы, на которые они подписаны
-    
+    <code>>>>(new App\Task\Repository)->company('<имя компании>')->tariffsWithActiveCustomers()->active()->get()</code>
+</p>
+<p>
+    2.4 Список активных клиентов и тарифы, на которые они подписаны
+    <br>
     Выполнить  в консоли
-    (new App\Task\Repository)->company('<имя компании>')->customersWithTariffs()->active()->get()
-
-
-3. Написать консольный php-скрипт для формирования отчетов компаний
-
+    <br>
+    <code>(new App\Task\Repository)->company('<имя компании>')->customersWithTariffs()->active()->get()</code>
+</p>
+<h3>3. Написать консольный php-скрипт для формирования отчетов компаний</h3>
+<p>
     Выполните в консоли
-    (new App\Task\Omega)->export()
-
-
+    <br>
+    <code>>>>(new App\Task\Omega)->export()</code>
+</p>
+<p>
     Для экпорта одной конкретной компании можо указать ее имя параметром метода export
-    (new App\Task\Omega)->export("Halvorson-O'Hara")
-
-
+    <code>(new App\Task\Omega)->export("Halvorson-O'Hara")</code>
+</p>
+<p>
 Экспортированые файлы можно найти в папке storage/app/public
+</p>
 
+<h3>Raw запросы</h3>
 
-
-Raw запросы
-
-
+<p>
 Количество всех клиентов, подписанных хоть на один тариф (по компаниям)
-
+<br>
+<code>
+    
 SELECT
 	COUNT(DISTINCT customer_id) AS cnt
 FROM
@@ -89,10 +99,15 @@ WHERE
 	    JOIN `tariffs` ON `tariffs`.`company_id` = `companies`.`id`
         WHERE `companies`.`name` = 'Monahan-Marquardt'
     )
+    
+</code>
+</p>
 
 
+<p>
 Количество неактивных клиентов, подписанных на тарифы (по компаниям)
-
+<br>
+<code>
 SELECT
 	COUNT(DISTINCT customer_id) AS cnt
 FROM
@@ -108,8 +123,16 @@ WHERE
 	    JOIN `tariffs` ON `tariffs`.`company_id` = `companies`.`id`
         WHERE `companies`.`name` = 'Monahan-Marquardt'
     )
+    
+</code>
+</p>
 
+
+
+<p>
 Список тарифов и количество активных клиентов подписанных на эти тарифы (по 	компаниям)
+<br>
+<code>
 
 SELECT
     tariffs.name AS tariff,
@@ -127,8 +150,14 @@ WHERE
     AND customers.is_active > 0
 GROUP BY tariff_id
 
+</code>
+</p>
 
+
+<p>
 Список активных клиентов и тарифы, на которые они подписаны
+<br>
+<code>
 
 SELECT
     CONCAT(customers.first_name, ' ', customers.first_name) AS name,
@@ -142,3 +171,6 @@ JOIN
     `tariffs` ON tariffs.id = customer_tariff.tariff_id
 WHERE
     customers.is_active > 0
+    
+</code>
+</p>
