@@ -213,7 +213,7 @@ GROUP BY tariff_id
 <pre>
 <code>
 SELECT
-    CONCAT(customers.first_name, ' ', customers.first_name) AS name,
+    CONCAT(customers.first_name, ' ', customers.last_name) AS name,
     customers.phone,
     tariffs.name as tariff
 FROM
