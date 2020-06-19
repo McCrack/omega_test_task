@@ -1,10 +1,12 @@
 <h3>Тестовое задание</h3>
 
-<p>Для реализации ипользовался фреймворк Laravel, MySQL, PHP 7.4.3</p>
+<p>Для реализации ипользовался фреймворк <b>Laravel</b>, MySQL, PHP 7.4.3</p>
 
 
 1. Клонировать проект
+<code>
 git clone https://github.com/McCrack/omega_test_task.git
+</code>
 
 2. Установить зависимости
 composer install
