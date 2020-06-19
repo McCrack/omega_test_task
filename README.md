@@ -57,7 +57,13 @@
     <br>
     Выполнить в консоли:
     <br>
-    <code>>>>(new App\Task\Repository)->company('<имя компании>')->tariffsWithActiveCustomers()->active()->get()</code>
+    <code>
+        >>>(new App\Task\Repository)
+            ->company('<имя компании>')
+            ->tariffsWithActiveCustomers()
+            ->active()
+            ->get()
+    </code>
 </p>
 <p>
     2.4 Список активных клиентов и тарифы, на которые они подписаны
