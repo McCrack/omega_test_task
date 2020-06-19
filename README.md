@@ -140,9 +140,12 @@ WHERE
     tariff_id IN (
 	    SELECT
 		    tariffs.id
-	    FROM `companies`
-	    JOIN `tariffs` ON `tariffs`.`company_id` = `companies`.`id`
-        WHERE `companies`.`name` = 'Monahan-Marquardt'
+        FROM
+            `companies`
+        JOIN
+            `tariffs` ON `tariffs`.`company_id` = `companies`.`id`
+        WHERE
+            `companies`.`name` = 'Monahan-Marquardt'
     )
     
 </code>
@@ -164,11 +167,14 @@ JOIN
 WHERE
     is_active = 0
     AND tariff_id IN (
-	    SELECT
+        SELECT
 		    tariffs.id
-	    FROM `companies`
-	    JOIN `tariffs` ON `tariffs`.`company_id` = `companies`.`id`
-        WHERE `companies`.`name` = 'Monahan-Marquardt'
+        FROM
+            `companies`
+        JOIN
+            `tariffs` ON `tariffs`.`company_id` = `companies`.`id`
+        WHERE
+            `companies`.`name` = 'Monahan-Marquardt'
     )
     
 </code>
