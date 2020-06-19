@@ -1,5 +1,5 @@
 <h2>Тестовое задание</h2>
-
+<hr>
 <h4>Для реализации ипользовался фреймворк Laravel, MySQL, PHP 7.4.3</h4>
 
 <ol>
@@ -33,7 +33,12 @@
 <p>
    Нам понадобится список компаний, выполните:
     <br>
-   >>><code>(new App\Task\Repository)->getCompaniesList()</code>
+<pre>
+<code>
+(new App\Task\Repository)
+    ->getCompaniesList()
+</code>
+</pre>
 </p>
 
 
@@ -43,47 +48,78 @@
    <br>
    Выполнить в консоли:
    <br>
-   <code>>>>(new App\Task\Repository)->company('<имя компании>')->customers()->count()</code>
+<pre>
+<code>
+(new App\Task\Repository)
+    ->company('<имя компании>')
+    ->customers()
+    ->count()
+</code>
+</pre>
 </p>
 <p>
 2.2  Количество неактивных клиентов, подписанных на тарифы (по компаниям)
 	<br>
     Выполнить в консоли:
     <br>
-    <code>>>>(new App\Task\Repository)->company('<имя компании>')->customers()->active(false)->count()</code>
+<pre>
+<code>
+(new App\Task\Repository)
+    ->company('<имя компании>')
+    ->customers()
+    ->active(false)
+    ->count()
+</code>
+</pre>
 </p>
 <p>
 2.3 Список тарифов и количество активных клиентов подписанных на эти тарифы (по 	компаниям)
     <br>
     Выполнить в консоли:
     <br>
-    <code>
-        >>>(new App\Task\Repository)
-            ->company('<имя компании>')
-            ->tariffsWithActiveCustomers()
-            ->active()
-            ->get()
-    </code>
+<pre>
+<code>
+(new App\Task\Repository)
+    ->company('<имя компании>')
+    ->tariffsWithActiveCustomers()
+    ->active()
+    ->get()
+</code>
+</pre>
 </p>
 <p>
     2.4 Список активных клиентов и тарифы, на которые они подписаны
     <br>
     Выполнить  в консоли:
     <br>
-    <code>(new App\Task\Repository)->company('<имя компании>')->customersWithTariffs()->active()->get()</code>
+<pre>
+<code>
+(new App\Task\Repository)
+    ->company('<имя компании>')
+    ->customersWithTariffs()
+    ->active()
+    ->get()
+</code>
+</pre>
 </p>
 <h3>3. Написать консольный php-скрипт для формирования отчетов компаний</h3>
 <p>
     Выполните в консоли:
     <br>
-    <code>>>>(new App\Task\Omega)->export()</code>
+<pre>
+<code>(new App\Task\Omega)->export()
+</code>
+</pre>
 </p>
 <p>
     Для экпорта одной конкретной компании можо указать ее имя параметром метода export
     <br>
-    <code>
-    >>>(new App\Task\Omega)->export("Halvorson-O'Hara")</code>
-    </code>
+<pre>
+<code>
+(new App\Task\Omega)
+    ->export("Halvorson-O'Hara")
+</code>
+</pre>
 </p>
 <p>
 Экспортированые файлы можно найти в папке <code>storage/app/public</code>
