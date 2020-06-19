@@ -116,7 +116,8 @@ WHERE
 
 <p>
 Количество неактивных клиентов, подписанных на тарифы (по компаниям)
-<br>
+</p>
+<pre>
 <code>
 SELECT
 	COUNT(DISTINCT customer_id) AS cnt
@@ -135,15 +136,15 @@ WHERE
     )
     
 </code>
-</p>
+</pre>
 
 
 
 <p>
 Список тарифов и количество активных клиентов подписанных на эти тарифы (по 	компаниям)
-<br>
+</p>
+<pre>
 <code>
-
 SELECT
     tariffs.name AS tariff,
     COUNT(DISTINCT customer_id) AS customers
@@ -161,14 +162,14 @@ WHERE
 GROUP BY tariff_id
 
 </code>
-</p>
+</pre>
 
 
 <p>
 Список активных клиентов и тарифы, на которые они подписаны
-<br>
+</p>
+<pre>
 <code>
-
 SELECT
     CONCAT(customers.first_name, ' ', customers.first_name) AS name,
     customers.phone,
@@ -183,4 +184,4 @@ WHERE
     customers.is_active > 0
     
 </code>
-</p>
+</pre>
