@@ -35,8 +35,7 @@
     <br>
 <pre>
 <code>
-(new App\Task\Repository)
-    ->getCompaniesList()
+php artisan companies
 </code>
 </pre>
 </p>
@@ -50,10 +49,7 @@
    <br>
 <pre>
 <code>
-(new App\Task\Repository)
-    ->company('<имя компании>')
-    ->customers()
-    ->count()
+php artisan customers:count '<имя компании>'
 </code>
 </pre>
 </p>
@@ -64,11 +60,7 @@
     <br>
 <pre>
 <code>
-(new App\Task\Repository)
-    ->company('<имя компании>')
-    ->customers()
-    ->active(false)
-    ->count()
+php artisan customers:count '<имя компании>' --inactive
 </code>
 </pre>
 </p>
@@ -79,11 +71,7 @@
     <br>
 <pre>
 <code>
-(new App\Task\Repository)
-    ->company('<имя компании>')
-    ->tariffsWithActiveCustomers()
-    ->active()
-    ->get()
+php artisan tariffs:customers '<имя компании>'
 </code>
 </pre>
 </p>
@@ -94,11 +82,7 @@
     <br>
 <pre>
 <code>
-(new App\Task\Repository)
-    ->company('<имя компании>')
-    ->customersWithTariffs()
-    ->active()
-    ->get()
+php artisan customers:tariffs '<имя компании>' --active
 </code>
 </pre>
 </p>

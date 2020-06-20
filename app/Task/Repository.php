@@ -41,6 +41,11 @@ class Repository
     {
         if (isset($this->company)) {
             $this->builder = DB::table('customer_tariff')
+                ->select(
+                    'customers.id',
+                    DB::raw("CONCAT(first_name, ' ', last_name) AS name"),
+                    'phone'
+                )
                 ->join('customers', 'customers.id', '=', 'customer_id')
                 ->whereIn('tariff_id',
                     $this->company
