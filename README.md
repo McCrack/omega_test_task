@@ -91,7 +91,8 @@ php artisan customers:tariffs '<имя компании>' --active
     Выполните в консоли:
     <br>
 <pre>
-<code>(new App\Task\Omega)->export()
+<code>
+php artisan export
 </code>
 </pre>
 </p>
@@ -100,8 +101,7 @@ php artisan customers:tariffs '<имя компании>' --active
     <br>
 <pre>
 <code>
-(new App\Task\Omega)
-    ->export("Halvorson-O'Hara")
+php artisan export '<имя компании>'
 </code>
 </pre>
 </p>

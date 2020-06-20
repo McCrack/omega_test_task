@@ -88,5 +88,15 @@ Artisan::command('tariffs:customers {company_name}', function (string $company_n
             ];
         })->implode('value', "\n")
     );
-})->describe('Company customer list');
+})->describe('Companies tariffs and active customers');
+
+
+Artisan::command('export {company_name?}', function ($company_name = null) {
+    if (isset($company_name)) {
+        $tariffs = (new App\Task\Omega)->export($company_name);
+    } else {
+        $tariffs = (new App\Task\Omega)->export();
+    }
+    $this->comment("Done");
+})->describe('Data mining');
 
